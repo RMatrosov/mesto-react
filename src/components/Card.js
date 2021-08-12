@@ -1,4 +1,4 @@
-function Card({card, onCardClick}) {
+export default function Card({card, onCardClick}) {
     return (
         <li className="element" onClick={() => onCardClick(card)}>
             <button type="button" className="element__button-delete"/>
@@ -14,5 +14,3 @@ function Card({card, onCardClick}) {
         </li>
     )
 }
-
-export default Card

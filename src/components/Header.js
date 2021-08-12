@@ -1,10 +1,9 @@
 
-function Header() {
+export default function Header() {
     return (
         <header className="header">
-            <a href="#" target="_blank" className="logo"></a>
+            <a href="#" target="_blank" className="logo"/>
         </header>
     )
 }
 
-export default Header

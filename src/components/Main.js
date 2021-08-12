@@ -1,9 +1,10 @@
 import Card from "./Card";
 import {useEffect, useState} from "react";
-import {api} from "../utils/Api";
+import api from "../utils/Api";
 
 
-function Main({ onCardClick, onAddPlace, onEditProfile, onEditAvatar}) {
+
+export default function Main({ onCardClick, onAddPlace, onEditProfile, onEditAvatar}) {
     const [userName, setUserName] = useState('Жак-Ив Кусто')
     const [userDescription, setUserDescription] = useState('Исследователь океана')
     const [userAvatar, setUserAvatar] = useState('')
@@ -16,14 +17,13 @@ function Main({ onCardClick, onAddPlace, onEditProfile, onEditAvatar}) {
             setUserDescription(data.about)
             setUserAvatar(data.avatar)
         })
-    })
+    },[])
 
     useEffect(() => {
         api.getInitialCards().then(data => {
             setCards(data)
         })
     }, [])
-
 
     return (
         <main className="main">
@@ -52,5 +52,3 @@ function Main({ onCardClick, onAddPlace, onEditProfile, onEditAvatar}) {
         </main>
     )
 }
-
-export default Main
