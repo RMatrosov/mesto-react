@@ -16,15 +16,18 @@ export default function Main({ onCardClick, onAddPlace, onEditProfile, onEditAva
             setUserName(data.name)
             setUserDescription(data.about)
             setUserAvatar(data.avatar)
-        })
+        }).catch((error)=>{
+            console.log(error)
+        });
     },[])
 
     useEffect(() => {
         api.getInitialCards().then(data => {
             setCards(data)
-        })
+        }).catch((error)=>{
+            console.log(error)
+        });
     }, [])
-
     return (
         <main className="main">
             <section className="profile">
@@ -45,7 +48,7 @@ export default function Main({ onCardClick, onAddPlace, onEditProfile, onEditAva
 
             <section className="elements">
                 <ul className="elements__list">
-                    {cards.map((card, i)=> <Card key={i} card={card} onCardClick={onCardClick}/>)}
+                    {cards.map((card)=> <Card key={card._id} card={card} onCardClick={onCardClick}/>)}
                 </ul>
             </section>
 
