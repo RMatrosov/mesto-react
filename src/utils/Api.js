@@ -24,7 +24,7 @@ class Api {
             .then(this._handleResponse);
     };
 
-    setUserInfoFromServer(data) {
+    setUserInfoFromServer({name, about}) {
         return fetch(`${this._URL}users/me`, {
             method: 'PATCH',
             headers: {
@@ -32,14 +32,14 @@ class Api {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-                name: data.name,
-                about: data.job
+                name: name,
+                about: about
             })
         })
             .then(this._handleResponse);
     };
 
-    addCardToServer(item) {
+    addCardToServer({title, link}) {
         return fetch(`${this._URL}cards`, {
             method: 'POST',
             headers: {
@@ -47,8 +47,8 @@ class Api {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-                name: item.name,
-                link: item.link
+                name: title,
+                link: link
             })
         })
             .then(this._handleResponse);
@@ -65,20 +65,15 @@ class Api {
             .then(this._handleResponse);
     };
 
-    addLike(data) {
-        return fetch(`${this._URL}cards/likes/${data}`, {
-            method: 'PUT',
-            headers: {
-                authorization: this._token,
-                'Content-Type': 'application/json'
-            }
-        })
-            .then(this._handleResponse);
-    };
-
-    deleteLike(data) {
-        return fetch(`${this._URL}cards/likes/${data}`, {
-            method: 'DELETE',
+    changeLikeCardStatus(id, isLiked) {
+        let method
+        if (!isLiked){
+            method = 'DELETE'
+        }else{
+            method = 'PUT'
+        }
+        return fetch(`${this._URL}cards/likes/${id}`, {
+            method: method,
             headers: {
                 authorization: this._token,
                 'Content-Type': 'application/json'
@@ -95,7 +90,7 @@ class Api {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-                avatar: item.link,
+                avatar: item.avatar,
             })
         })
             .then(this._handleResponse);
