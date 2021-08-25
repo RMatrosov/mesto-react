@@ -20,16 +20,17 @@ function App() {
   const [cards, setCards] = useState([])
   const [currentUser, setCurrentUser] = useState({});
   const [isLoading, setIsLoading] = useState(false);
+  const [isLoadingCards, setIsLoadingCards] = useState(false);
 
 
   useEffect(() => {
-    setIsLoading(true)
+    setIsLoadingCards(true)
     api.getInitialCards().then(data => {
       setCards(data)
     }).catch((error) => {
       console.log(error)
     }).finally(() => {
-      setIsLoading(false)
+      setIsLoadingCards(false)
     })
   }, [])
 
@@ -129,16 +130,17 @@ function App() {
 
               <AddPlacePopup onClose={closeAllPopups}
                              isOpen={isAddPlacePopupOpen}
-                             onAddPlace={handleAddPlaceSubmit}/>/>
+                             onAddPlace={handleAddPlaceSubmit}/>
 
               <Header/>
-              {isLoading ? <Spinner/> : <Main onEditProfile={handleEditProfileClick}
-                                              onAddPlace={handleAddPlaceClick}
-                                              onEditAvatar={handleEditAvatarClick}
-                                              onCardClick={handleCardClick}
-                                              cards={cards}
-                                              onCardLike={handleCardLike}
-                                              onCardDelete={handleCardDelete}/>}
+              {isLoading || isLoadingCards ? (<Spinner/>) :
+                  (<Main onEditProfile={handleEditProfileClick}
+                         onAddPlace={handleAddPlaceClick}
+                         onEditAvatar={handleEditAvatarClick}
+                         onCardClick={handleCardClick}
+                         cards={cards}
+                         onCardLike={handleCardLike}
+                         onCardDelete={handleCardDelete}/>)}
               <Footer/>
             </div>
           </div>

@@ -8,12 +8,12 @@ export default function AddPlacePopup(props) {
 
   function handleSubmit(e) {
     e.preventDefault();
-    const form = e.target;
     props.onAddPlace({
       title: cardTitle,
       link: cardLink,
     });
-    form.reset()
+    setCardTitle('');
+    setCardLink('');
   }
 
   return (
@@ -29,12 +29,13 @@ export default function AddPlacePopup(props) {
 
 
         <input type="text"
+               value={cardTitle}
                onChange={(e)=>setCardTitle(e.target.value)}
-               className="form__input" name="name" id="title" placeholder="Название"
+               className="form__input" name="title" id="title" placeholder="Название"
                minLength="2"
                maxLength="200" required/>
         <span className="form__input-error title-input-error"/>
-        <input type="url" className="form__input"
+        <input type="url" className="form__input" value={cardLink}
                onChange={(e)=>setCardLink(e.target.value)}
                name="link" id="link"
                placeholder="Ссылка на картинку" required/>
