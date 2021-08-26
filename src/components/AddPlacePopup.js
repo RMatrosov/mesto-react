@@ -1,10 +1,16 @@
 import PopupWithForm from "./PopupWithForm";
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 
 export default function AddPlacePopup(props) {
 
   const [cardTitle, setCardTitle] = useState('');
   const [cardLink, setCardLink] = useState('');
+
+  useEffect(() => {
+    setCardTitle('');
+    setCardLink('');
+  }, [props.isOpen]);
+
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -12,8 +18,6 @@ export default function AddPlacePopup(props) {
       title: cardTitle,
       link: cardLink,
     });
-    setCardTitle('');
-    setCardLink('');
   }
 
   return (
@@ -30,13 +34,13 @@ export default function AddPlacePopup(props) {
 
         <input type="text"
                value={cardTitle}
-               onChange={(e)=>setCardTitle(e.target.value)}
+               onChange={(e) => setCardTitle(e.target.value)}
                className="form__input" name="title" id="title" placeholder="Название"
                minLength="2"
                maxLength="200" required/>
         <span className="form__input-error title-input-error"/>
         <input type="url" className="form__input" value={cardLink}
-               onChange={(e)=>setCardLink(e.target.value)}
+               onChange={(e) => setCardLink(e.target.value)}
                name="link" id="link"
                placeholder="Ссылка на картинку" required/>
         <span className="form__input-error link-input-error"/>
